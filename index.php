@@ -1,79 +1,814 @@
 <?php
 session_start();
-include("conexion.php");
 
 $usuario = "";
 
 if (isset($_SESSION['nombre'])) {
     $usuario = $_SESSION['nombre'];
 }
-
-$ocultariniciar = ($usuario != '') ? 'hidden' : '';
-$ocultarcerrar = ($usuario != '') ? '' : 'hidden';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUSTICOS</title>
-   
+
     <link rel="icon" href="img/LOGOGUSTICOS.png">
-    <link rel="stylesheet" href="assets/css/iniciogusticos.css?v=1.5">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="iniciogusticos.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+<header class="encabezado">
+
+    <div class="contenedor-header">
+
+        <div class="logos animate__animated animate__zoomIn">
+            <img src="img/LOGOGUSTICOS.png" alt="Logo Gusticos">
+        </div>
+
+        <nav class="menu">
+
+            <a href="index.php">INICIO</a>
+
+            <?php if(isset($_SESSION['nombre'])){ ?>
+
+                <a href="#">👤 <?php echo $_SESSION['nombre']; ?></a>
+
+                <a href="CerrarSesion.php">CERRAR SESIÓN</a>
+
+            <?php }else{ ?>
+
+                <a href="Registro.php">REGISTRO</a>
+
+                <a href="InicioSesion.php">INICIAR SESIÓN</a>
+
+            <?php } ?>
+
+            <a href="Especialidades.php">ESPECIALIDADES</a>
+
+            <a href="Infantiles.php">INFANTILES</a>
+
+            <a href="Copas Deliciosas.php">COPAS DELICIOSAS</a>
+
+            <a href="Helados.php">HELADOS</a>
+
+        </nav>
+
+        <div class="icono animate__animated animate__heartBeat">
+
+            <a href="Carrito.php">
+
+                <img src="img/Carrito de compras.png"
+                    alt="Carrito de compras">
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+<section class="text-center mt-5">
+
+    <h1 class="animate__animated animate__bounceIn">
+        😍 ¡Bienvenidos a Gusticos! 😍
+    </h1>
+
+    <h3>
+        <em>🌸 Gusticos, un antojo que enamora 🌸</em>
+    </h3>
+
+    <?php if($usuario != ""){ ?>
+
+        <h4 style="color:#9c27b0; margin-top:20px;">
+            👋 ¡Hola, <?php echo $usuario; ?>! Bienvenido nuevamente.
+        </h4>
+
+    <?php } ?>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUSTICOS</title>
+    <link rel="icon" href="img/LOGOGUSTICOS.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="iniciogusticos.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<body onload="contadorCarrito()">
-    <?php include("menu.php") ?>
-    <section class="text-center mt-5">
-        <h1 class="animate__animated animate__bounceIn">😍 ¡Bienvenidos a Gusticos! 😍</h1>
-        <h3><em>🌸 Gusticos, un antojo que enamora 🌸</em></h3> <?php if ($usuario != "") { ?> <h4 style="color:#9c27b0;margin-top:20px">👋 ¡Hola, <?php echo $usuario; ?>! Bienvenido nuevamente.</h4> <?php } ?>
-    </section>
-    <div id="carouselExampleIndicators" class="carousel slide mt-5" data-bs-ride="carousel">
-        <div class="carousel-indicators"><button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button><button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button><button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button></div>
-        <div class="carousel-inner">
-            <div class="carousel-item active"><img src="img/Promocion del mes.png" class="d-block w-100" alt="Promoción 1"></div>
-            <div class="carousel-item"><img src="img/Promoción del mes1.png" class="d-block w-100" alt="Promoción 2"></div>
-            <div class="carousel-item"><img src="img/Promocion3.png" class="d-block w-100" alt="Promoción 3"></div>
-        </div><button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Anterior</span></button><button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Siguiente</span></button>
-    </div>
-    <section class="titulo-catalogo">
-        <h1 class="animate__animated animate__shakeX">🍨 Catálogo de Productos 🍨</h1>
-        <p>¡Ven y échale un vistazo a nuestras delicias!</p>
-    </section>
-    <div class="catalogo">
-        <?php
-        $consultarProductos = $conexion->prepare("SELECT idproducto, nombre, descripcion, precio, imagen FROM productos WHERE estado = 1 ORDER BY nombre, precio");
-        $consultarProductos->execute();
-        $resultadoProductos = $consultarProductos->get_result();
-        while ($filaProductos = $resultadoProductos->fetch_assoc()) {
-        ?>
-            <div class="card"><img src="img/<?php echo $filaProductos['imagen'] ?>">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $filaProductos['nombre'] ?></h5>
-                    <p class="card-text"><?php echo $filaProductos['descripcion'] ?></p>
-                    <h4 class="precio">$<?php echo number_format($filaProductos['precio']) ?></h4>
-                    <button type="button" class="btn-agregar btnAgregarProducto" data-bs-toggle="offcanvas" data-bs-target="#panelCarrito" aria-controls="panelCarrito" onclick="agregarCarrito('<?php echo $filaProductos['idproducto'] ?>')">
-                        <i class="bi bi-cart-plus"></i> Agregar al carrito
-                    </button>
-                </div>
+<body>
+    <header class="encabezado">
+
+        <div class="contenedor-header">
+
+            
+            <div class="logos animate__animated animate__zoomIn">
+                <img src="img/LOGOGUSTICOS.png" alt="Logo Gusticos">
             </div>
-        <?php
-        }
-        ?>
+
+            
+            <nav class="menu">
+
+                <a href="index.html">INICIO</a>
+
+                <a href="Registro.html">REGISTRO</a>
+
+                <a href="Especialidades.html">ESPECIALIDADES</a>
+
+                <a href="Infantiles.html">INFANTILES</a>
+ 
+                <a href="Copas Deliciosas.html">COPAS DELICIOSAS</a>
+
+                <a href="Helados.html">HELADOS</a>
+
+            </nav>
+
+            
+            <div class="icono animate__animated animate__heartBeat">
+
+                <a href="Carrito.html">
+
+                    <img src="img/Carrito de compras.png"
+                        alt="Carrito de compras">
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    
+    <section class="text-center mt-5">
+
+        <h1 class="animate__animated animate__bounceIn">
+            😍 ¡Bienvenidos a Gusticos! 😍
+        </h1>
+
+        <h3>
+          <em> 🌸 Gusticos, un antojo que enamora 🌸</em>
+        </h3>
+
+    </section>
+
+    
+    <div id="carouselExampleIndicators"
+        class="carousel slide mt-5"
+        data-bs-ride="carousel">
+
+        
+        <div class="carousel-indicators">
+
+            <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active">
+            </button>
+
+            <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="1">
+            </button>
+
+            <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="2">
+            </button>
+
+        </div>
+
+        
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+
+                <img
+                    src="img/Promocion del mes.png"
+                    class="d-block w-100"
+                    alt="Promoción 1">
+
+            </div>
+
+            <div class="carousel-item">
+
+                <img
+                    src="img/Promoción del mes1.png"
+                    class="d-block w-100"
+                    alt="Promoción 2">
+
+            </div>
+
+            <div class="carousel-item">
+
+                <img
+                    src="img/Promocion3.png"
+                    class="d-block w-100"
+                    alt="Promoción 3">
+
+            </div>
+
+        </div>
+
+        
+        <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+
+            <span class="carousel-control-prev-icon"></span>
+
+            <span class="visually-hidden">
+                Anterior
+            </span>
+
+        </button>
+
+    
+        <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+
+            <span class="carousel-control-next-icon"></span>
+
+            <span class="visually-hidden">
+                Siguiente
+            </span>
+
+        </button>
+      </div>
+      <section class="titulo-catalogo">
+
+    <h1 class="animate__animated animate__shakeX">
+        🍨 Catálogo de Productos 🍨
+    </h1>
+
+    <p>
+        ¡Ven y échale un vistazo a nuestras delicias!
+    </p>
+
+</section>
+
+<div class="catalogo">
+
+    <div class="card">
+        <img src="img/Ensalda de frutas.jpeg" alt="Ensalada de frutas">
+
+        <div class="card-body">
+            <h5 class="card-title">🍓 Ensalada de frutas</h5>
+
+            <p class="card-text">
+                Frutas frescas con mucho sabor.
+            </p>
+            <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
     </div>
-    <?php include("Carrito.php") ?>
 
-    <?php include("footer.php") ?>
+    <div class="card">
+        <img src="img/Waffles.jpeg" alt="Waffles">
 
-    <script src="assets/js/carrito.js?v=<?php echo time() ?>"></script>
+        <div class="card-body">
+            <h5 class="card-title">🧇 Waffles</h5>
+
+            <p class="card-text">
+                Deliciosos waffles con frutas y salsas.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Banana split.jpeg" alt="Banana Split">
+
+        <div class="card-body">
+            <h5 class="card-title">🍌 Banana Split</h5>
+
+            <p class="card-text">
+                Helado, frutas y mucha dulzura.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Vasitos de helado.jpeg" alt="Vasos de helado">
+
+        <div class="card-body">
+            <h5 class="card-title">🍦 Vasos de Helado</h5>
+
+            <p class="card-text">
+                El antojo perfecto para cualquier momento.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Salpicon.jpeg" alt="Salpicón">
+
+        <div class="card-body">
+            <h5 class="card-title">🥤 Salpicón</h5>
+
+            <p class="card-text">
+                Refrescante y lleno de frutas.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Fresas con crema.jpeg" alt="Fresas con crema">
+
+        <div class="card-body">
+            <h5 class="card-title">🍓 Fresas con Crema</h5>
+
+            <p class="card-text">
+                Dulce, cremoso y delicioso.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+</div>
+<footer class="footer">
+
+    <div class="footer-contenedor">
+
+    
+        <div class="footer-col">
+            <img src="img/LOGOGUSTICOS.png" class="footer-logo">
+
+            <div class="redes">
+                <a href="https://www.facebook.com/share/1CtyWS2kGD/"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/gusticos_pacora?utm_source=qr&igsh=aXQzeW1nNXBnZmp2"><i class="bi bi-instagram"></i></a>
+                <a href="https://wa.me/qr/OWU2J7W6CBZEL1"><i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+
+        
+        <div class="footer-col">
+            <h3>Nosotros</h3>
+
+            <a href="Acerca de nosotros.html">Acerca de Nosotros</a>
+            <a href="">Política de Tratamiento de Datos</a>
+            <a href="">Términos y Condiciones</a>
+        </div>
+
+        
+        <div class="footer-col">
+            <h3>Categorías</h3>
+
+            <a href="Helados.html">Helados</a>
+            <a href="Infantiles.html">Infantiles</a>
+            <a href="Especialidades.html">Especialidades</a>
+            <a href="Copas Deliciosas.html">Copas Deliciosas</a>
+            <a href="Malteadas.html">Malteadas</a>
+            <a href="Bebidas.html">Bebidas</a>
+        </div>
+
+        
+        <div class="footer-col">
+            <h3>Servicio al Cliente</h3>
+
+            <p>📧 gusticos@gmail.com</p>
+            <p>📱 +57 300 9653624</p>
+            <p>📍 Dirección Pácora Caldas CLL 5 #4 16 local 101</p>
+           <p>🕐 Horario: Lunes a viernes 11:00 AM a 12:30 PM <br> y de 2:00PM a 7:00 PM Sábado<br> y domingos 10:30AM a 07:00 PM</p>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copy">
+        © 2026 Gusticos | Un antojo que enamora 🍨💕
+    </p>
+
+</footer>
+
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUSTICOS</title>
+    <link rel="icon" href="img/LOGOGUSTICOS.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="iniciogusticos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <header class="encabezado">
+
+        <div class="contenedor-header">
+
+            
+            <div class="logos animate__animated animate__zoomIn">
+                <img src="img/LOGOGUSTICOS.png" alt="Logo Gusticos">
+            </div>
+
+            
+            <nav class="menu">
+
+                <a href="index.html">INICIO</a>
+
+                <a href="Registro.html">REGISTRO</a>
+
+                <a href="Especialidades.html">ESPECIALIDADES</a>
+
+                <a href="Infantiles.html">INFANTILES</a>
+ 
+                <a href="Copas Deliciosas.html">COPAS DELICIOSAS</a>
+
+                <a href="Helados.html">HELADOS</a>
+
+            </nav>
+
+            
+            <div class="icono animate__animated animate__heartBeat">
+
+                <a href="Carrito.html">
+
+                    <img src="img/Carrito de compras.png"
+                        alt="Carrito de compras">
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    
+    <section class="text-center mt-5">
+
+        <h1 class="animate__animated animate__bounceIn">
+            😍 ¡Bienvenidos a Gusticos! 😍
+        </h1>
+
+        <h3>
+          <em> 🌸 Gusticos, un antojo que enamora 🌸</em>
+        </h3>
+
+    </section>
+
+    
+    <div id="carouselExampleIndicators"
+        class="carousel slide mt-5"
+        data-bs-ride="carousel">
+
+        
+        <div class="carousel-indicators">
+
+            <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active">
+            </button>
+
+            <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="1">
+            </button>
+
+            <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="2">
+            </button>
+
+        </div>
+
+        
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+
+                <img
+                    src="img/Promocion del mes.png"
+                    class="d-block w-100"
+                    alt="Promoción 1">
+
+            </div>
+
+            <div class="carousel-item">
+
+                <img
+                    src="img/Promoción del mes1.png"
+                    class="d-block w-100"
+                    alt="Promoción 2">
+
+            </div>
+
+            <div class="carousel-item">
+
+                <img
+                    src="img/Promocion3.png"
+                    class="d-block w-100"
+                    alt="Promoción 3">
+
+            </div>
+
+        </div>
+
+        
+        <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+
+            <span class="carousel-control-prev-icon"></span>
+
+            <span class="visually-hidden">
+                Anterior
+            </span>
+
+        </button>
+
+    
+        <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+
+            <span class="carousel-control-next-icon"></span>
+
+            <span class="visually-hidden">
+                Siguiente
+            </span>
+
+        </button>
+      </div>
+      <section class="titulo-catalogo">
+
+    <h1 class="animate__animated animate__shakeX">
+        🍨 Catálogo de Productos 🍨
+    </h1>
+
+    <p>
+        ¡Ven y échale un vistazo a nuestras delicias!
+    </p>
+
+</section>
+
+<div class="catalogo">
+
+    <div class="card">
+        <img src="img/Ensalda de frutas.jpeg" alt="Ensalada de frutas">
+
+        <div class="card-body">
+            <h5 class="card-title">🍓 Ensalada de frutas</h5>
+
+            <p class="card-text">
+                Frutas frescas con mucho sabor.
+            </p>
+            <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Waffles.jpeg" alt="Waffles">
+
+        <div class="card-body">
+            <h5 class="card-title">🧇 Waffles</h5>
+
+            <p class="card-text">
+                Deliciosos waffles con frutas y salsas.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Banana split.jpeg" alt="Banana Split">
+
+        <div class="card-body">
+            <h5 class="card-title">🍌 Banana Split</h5>
+
+            <p class="card-text">
+                Helado, frutas y mucha dulzura.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Vasitos de helado.jpeg" alt="Vasos de helado">
+
+        <div class="card-body">
+            <h5 class="card-title">🍦 Vasos de Helado</h5>
+
+            <p class="card-text">
+                El antojo perfecto para cualquier momento.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Salpicon.jpeg" alt="Salpicón">
+
+        <div class="card-body">
+            <h5 class="card-title">🥤 Salpicón</h5>
+
+            <p class="card-text">
+                Refrescante y lleno de frutas.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="img/Fresas con crema.jpeg" alt="Fresas con crema">
+
+        <div class="card-body">
+            <h5 class="card-title">🍓 Fresas con Crema</h5>
+
+            <p class="card-text">
+                Dulce, cremoso y delicioso.
+            </p>
+                <h4 class="precio">$10.000</h4>
+
+            <a href="Carrito.html" class="btn-agregar">
+                🛒 Agregar
+            </a>
+        </div>
+    </div>
+
+</div>
+<footer class="footer">
+
+    <div class="footer-contenedor">
+
+    
+        <div class="footer-col">
+            <img src="img/LOGOGUSTICOS.png" class="footer-logo">
+
+            <div class="redes">
+                <a href="https://www.facebook.com/share/1CtyWS2kGD/"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/gusticos_pacora?utm_source=qr&igsh=aXQzeW1nNXBnZmp2"><i class="bi bi-instagram"></i></a>
+                <a href="https://wa.me/qr/OWU2J7W6CBZEL1"><i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+
+        
+        <div class="footer-col">
+            <h3>Nosotros</h3>
+
+            <a href="Acerca de nosotros.html">Acerca de Nosotros</a>
+            <a href="">Política de Tratamiento de Datos</a>
+            <a href="">Términos y Condiciones</a>
+        </div>
+
+        
+        <div class="footer-col">
+            <h3>Categorías</h3>
+
+            <a href="Helados.html">Helados</a>
+            <a href="Infantiles.html">Infantiles</a>
+            <a href="Especialidades.html">Especialidades</a>
+            <a href="Copas Deliciosas.html">Copas Deliciosas</a>
+            <a href="Malteadas.html">Malteadas</a>
+            <a href="Bebidas.html">Bebidas</a>
+        </div>
+
+        
+        <div class="footer-col">
+            <h3>Servicio al Cliente</h3>
+
+            <p>📧 gusticos@gmail.com</p>
+            <p>📱 +57 300 9653624</p>
+            <p>📍 Dirección Pácora Caldas CLL 5 #4 16 local 101</p>
+           <p>🕐 Horario: Lunes a viernes 11:00 AM a 12:30 PM <br> y de 2:00PM a 7:00 PM Sábado<br> y domingos 10:30AM a 07:00 PM</p>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copy">
+        © 2026 Gusticos | Un antojo que enamora 🍨💕
+    </p>
+
+</footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
